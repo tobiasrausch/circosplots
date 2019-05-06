@@ -1,0 +1,4 @@
+.circos
+*.png
+*~
+circos-*/
