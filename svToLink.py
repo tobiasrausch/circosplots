@@ -15,6 +15,7 @@ parser = argparse.ArgumentParser(description='Convert BCF file to link file')
 parser.add_argument('-i', '--input', metavar='delly.bcf', required=True, dest='svinput', help='input SV file (required)')
 parser.add_argument('-f', '--format', metavar='delly', required=False, default='delly', dest='svformat', help='SV format [delly|bedpe]')
 parser.add_argument('-o', '--outprefix', metavar='out', required=False, default='out', dest='outprefix', help='output prefix')
+parser.add_argument('-p', '--pos', metavar='59283206', type=int, required=False, default=-1, dest='posHighlight', help='highlight position')
 parser.add_argument('-m', '--min', metavar='10000000', type=int, required=False, default=10000000, dest='minSize', help='min. SV size')
 args = parser.parse_args()
 
@@ -44,7 +45,7 @@ with open(fout1, 'w') as flinks:
                 pos1 = record.POS
                 chr2 = record.INFO["CHR2"].replace("chr","")
                 pos2 = record.INFO["END"]
-                if pos1 == 59283206:
+                if pos1 == args.posHighlight:
                     highlight = 1
                 if (chr1 == "Y") or (chr1 == "chrY") or (chr2 == "Y") or (chr2 == "chrY"):
                     continue
@@ -63,7 +64,7 @@ with open(fout1, 'w') as flinks:
                     pos1 = (int(row['start1']) + int(row['end1'])) / 2
                     chr2 = row['chrom2']
                     pos2 = (int(row['start2']) + int(row['end2'])) / 2
-                    if pos1 == 59283206:
+                    if pos1 == args.posHighlight:
                         highlight = 1
                     if (chr1 == "Y") or (chr1 == "chrY") or (chr2 == "Y") or (chr2 == "chrY"):
                         continue
