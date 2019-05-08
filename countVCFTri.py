@@ -60,7 +60,7 @@ for i in ['A', 'C', 'G', 'T']:
 # VCF
 vcf = cyvcf2.VCF(args.bcf)
 for record in vcf:
-    if (record.CHROM == "Y") or (record.CHROM == "X"):
+    if record.CHROM == "Y":
         continue
     if len(record.ALT)==1:
         if record.is_snp:
