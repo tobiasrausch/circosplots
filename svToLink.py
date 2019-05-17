@@ -61,13 +61,13 @@ with open(fout, 'w') as flinks:
                                 print(chr1, pos1, pos1 + 1, chr2, pos2, pos2 + 1, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight), sep=" ", file=flinks)
                             else:
                                 if svt == 'DEL':
-                                    print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight), sep=" ", file=fdel)
+                                    print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight) + ",color=dark2-5-qual-2", sep=" ", file=fdel)
                                 elif svt == 'DUP':
-                                    print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight), sep=" ", file=fdup)
+                                    print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight) + ",color=dark2-5-qual-3", sep=" ", file=fdup)
                                 elif (svt == 'INV') and (ct == '3to3'):
-                                    print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight), sep=" ", file=finv3)
+                                    print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight) + ",color=dark2-5-qual-4", sep=" ", file=finv3)
                                 elif (svt == 'INV') and (ct == '5to5'):
-                                    print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight), sep=" ", file=finv5)
+                                    print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight) + ",color=dark2-5-qual-5", sep=" ", file=finv5)
                     elif args.svformat == "bedpe":
                         with gzip.open(args.svinput) as f:
                             reader = csv.DictReader(f, delimiter="\t")
@@ -81,29 +81,33 @@ with open(fout, 'w') as flinks:
                                     highlight = 1
                                 if (chr1 == "Y") or (chr1 == "chrY") or (chr2 == "Y") or (chr2 == "chrY"):
                                     continue
-                                svt = row['svclass']
+                                svt = row['svclass']                                
                                 if svt == "DEL":
                                     ct = "3to5"
+                                    col = "dark2-5-qual-2"
                                 elif svt == "DUP":
                                     ct = "5to3"
+                                    col = "dark2-5-qual-3"
                                 elif svt == "h2hINV":
                                     svt = "INV"
                                     ct = "5to5"
+                                    col = "dark2-5-qual-5"
                                 elif svt == "t2tINV":
                                     svt = "INV"
                                     ct = "3to3"
+                                    col = "dark2-5-qual-4"
                                 elif svt == "TRA":
                                     svt = "BND"
                                     ct = "NtoN"
+                                    col = "dark2-5-qual-1"
                                 if (chr1 != chr2) or (pos1 + minSize < pos2):
-                                    print(chr1, pos1, pos1 + 1, chr2, pos2, pos2 + 1, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight), sep=" ", file=flinks)
+                                    print(chr1, pos1, pos1 + 1, chr2, pos2, pos2 + 1, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight) + ",color=" + col, sep=" ", file=flinks)
                                 else:
                                     if svt == 'DEL':
-                                        print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight), sep=" ", file=fdel)
+                                        print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight) + ",color=" + col, sep=" ", file=fdel)
                                     elif svt == 'DUP':
-                                        print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight), sep=" ", file=fdup)
+                                        print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight) + ",color=" + col, sep=" ", file=fdup)
                                     elif (svt == 'INV') and (ct == '3to3'):
-                                        print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight), sep=" ", file=finv3)
+                                        print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight) + ",color=" + col, sep=" ", file=finv3)
                                     elif (svt == 'INV') and (ct == '5to5'):
-                                        print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight), sep=" ", file=finv5)
-        
+                                        print(chr1, pos1, pos2, "svtype=" + svt + ",ct=" + ct + ",hl=" + str(highlight) + ",color=" + col, sep=" ", file=finv5)
